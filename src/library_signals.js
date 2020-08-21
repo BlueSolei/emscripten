@@ -105,10 +105,10 @@ var funs = {
   },
 
   // http://pubs.opengroup.org/onlinepubs/000095399/functions/alarm.html
-  alarm__deps: ['_sigalrm_handler'],
+  alarm__deps: ['_sigalrm_handler', '$getDynCaller'],
   alarm: function(seconds) {
     setTimeout(function() {
-      if (__sigalrm_handler) {{{ makeDynCall('vi') }}}(__sigalrm_handler, 0);
+      if (__sigalrm_handler) {{{ makeDynCallBound('vi', '__sigalrm_handler') }}}(0);
     }, seconds*1000);
   },
   ualarm: function() {

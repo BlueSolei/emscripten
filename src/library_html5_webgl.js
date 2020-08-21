@@ -382,7 +382,7 @@ var LibraryHtml5WebGL = {
 #endif
   },
 
-  _registerWebGlEventCallback__deps: ['$JSEvents', '$findEventTarget'],
+  _registerWebGlEventCallback__deps: ['$JSEvents', '$findEventTarget', '$getDynCaller'],
   _registerWebGlEventCallback: function(target, userData, useCapture, callbackfunc, eventTypeId, eventTypeString, targetThread) {
 #if USE_PTHREADS
     targetThread = JSEvents.getTargetThreadForEventCallback(targetThread);

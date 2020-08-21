@@ -340,6 +340,7 @@ mergeInto(LibraryManager.library, {
     });
   },
 
+  emscripten_scan_registers__deps: ['$getDynCaller'],
   emscripten_scan_registers: function(func) {
     Asyncify.handleSleep(function(wakeUp) {
       // We must first unwind, so things are spilled to the stack. We
@@ -364,7 +365,7 @@ mergeInto(LibraryManager.library, {
     });
   },
 
-  $Fibers__deps: ['$Asyncify'],
+  $Fibers__deps: ['$Asyncify', '$getDynCaller'],
   $Fibers: {
     nextFiber: 0,
     trampolineRunning: false,

@@ -732,16 +732,17 @@ mergeInto(LibraryManager.library, {
    * Passing a NULL callback function to a emscripten_set_socket_*_callback call
    * will deregister the callback registered for that Event.
    */
+  __set_network_callback__deps: ['$getDynCaller'],
   __set_network_callback: function(event, userData, callback) {
     function _callback(data) {
       try {
         if (event === 'error') {
           var sp = stackSave();
           var msg = allocate(intArrayFromString(data[2]), 'i8', ALLOC_STACK);
-          {{{ makeDynCall('viiii') }}}(callback, data[0], data[1], msg, userData);
+          {{{ makeDynCallBound('viiii', 'callback') }}}(data[0], data[1], msg, userData);
           stackRestore(sp);
         } else {
-          {{{ makeDynCall('vii') }}}(callback, data, userData);
+          {{{ makeDynCallBound('vii', 'callback') }}}(data, userData);
         }
       } catch (e) {
         if (e instanceof ExitStatus) {
