@@ -4058,7 +4058,6 @@ LibraryManager.library = {
 #endif
   },
 
-  $callRuntimeCallbacks__deps: ['$dynCall'],
   $callRuntimeCallbacks: function(callbacks) {
     while(callbacks.length > 0) {
       var callback = callbacks.shift();

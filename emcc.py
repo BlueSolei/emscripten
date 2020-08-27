@@ -1533,6 +1533,7 @@ There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR P
       # dynCall is used to call pthread entry points in worker.js (as
       # metadce does not consider worker.js, which is external, we must
       # consider it an export, i.e., one which can never be removed).
+      shared.Settings.DEFAULT_LIBRARY_FUNCS_TO_INCLUDE += ['$dynCall']
       shared.Settings.EXPORTED_FUNCTIONS += ['dynCall']
 
       if shared.Settings.MINIMAL_RUNTIME:
