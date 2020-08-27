@@ -4021,6 +4021,24 @@ LibraryManager.library = {
     return Module['dynCall_' + sig].call(null, ptr);
   },
   $dynCall__deps: ['$dynCallLegacy'],
+
+  // Used in library code to get callbable from wasm function pointer.
+  // All callers should use direct table access where possible and only fall
+  // back to this function if needed.
+  $getDynCaller__deps: ['$dynCall'],
+  $getDynCaller: function(sig, ptr) {
+#if !USE_LEGACY_DYNCALLS
+    assert(sig.indexOf('j') >= 0, 'getDynCaller should only be called with i64 sigs')
+#endif
+    var argCache = [];
+    return function() {
+      argCache.length = arguments.length + 1;
+      for (var i = 0; i < arguments.length; i++) {
+        argCache[i + 1] = arguments[i];
+      }
+      return dynCall(sig, ptr, argCache);
+    };
+  },
 #endif
 
   $dynCall: function (sig, ptr, args) {
@@ -4038,13 +4056,6 @@ LibraryManager.library = {
 
     return wasmTable.get(ptr).apply(null, args)
 #endif
-  },
-
-  $getDynCaller__deps: ['$dynCall'],
-  $getDynCaller: function(sig, ptr) {
-    return function() {
-      return dynCall(sig, ptr, Array.prototype.slice.call(arguments));
-    };
   },
 
   $callRuntimeCallbacks__deps: ['$dynCall'],

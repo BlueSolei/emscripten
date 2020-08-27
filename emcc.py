@@ -1260,7 +1260,7 @@ There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR P
     if shared.Settings.RELOCATABLE:
       shared.Settings.ALLOW_TABLE_GROWTH = 1
 
-    if shared.Settings.WASM2C or shared.Settings.ASYNCIFY or shared.Settings.EMBIND:
+    if shared.Settings.WASM2C or shared.Settings.ASYNCIFY:
       shared.Settings.USE_LEGACY_DYNCALLS = 1
       shared.Settings.DEFAULT_LIBRARY_FUNCS_TO_INCLUDE += ['$getDynCaller']
 
