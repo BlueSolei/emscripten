@@ -4022,7 +4022,7 @@ LibraryManager.library = {
   },
   $dynCall__deps: ['$dynCallLegacy'],
 
-  // Used in library code to get callbable from wasm function pointer.
+  // Used in library code to get JS function from wasm function pointer.
   // All callers should use direct table access where possible and only fall
   // back to this function if needed.
   $getDynCaller__deps: ['$dynCall'],
@@ -4032,9 +4032,9 @@ LibraryManager.library = {
 #endif
     var argCache = [];
     return function() {
-      argCache.length = arguments.length + 1;
+      argCache.length = arguments.length;
       for (var i = 0; i < arguments.length; i++) {
-        argCache[i + 1] = arguments[i];
+        argCache[i] = arguments[i];
       }
       return dynCall(sig, ptr, argCache);
     };

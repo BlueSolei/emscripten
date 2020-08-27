@@ -179,7 +179,7 @@ var LibraryExceptions = {
     info.add_ref();
   },
 
-  $exception_decRef__deps: ['__cxa_free_exception',
+  $exception_decRef__deps: ['__cxa_free_exception'
 #if EXCEPTION_DEBUG
     , '$exceptionLast', '$exceptionCaught'
 #endif

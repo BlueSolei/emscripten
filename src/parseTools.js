@@ -1454,12 +1454,12 @@ function asmFFICoercion(value, type) {
   return value;
 }
 
-function makeDynCall(sig, func) {
+function makeDynCall(sig, funcPtr) {
   assert(sig.indexOf('j') == -1);
   if (USE_LEGACY_DYNCALLS) {
-    return `getDynCaller("${sig}", ${func})`;
+    return `getDynCaller("${sig}", ${funcPtr})`;
   } else {
-    return `wasmTable.get(${func})`;
+    return `wasmTable.get(${funcPtr})`;
   }
 }
 
