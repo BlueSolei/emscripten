@@ -56,6 +56,7 @@ function initRuntime(asm) {
   // Export needed variables that worker.js needs to Module.
   Module['_emscripten_tls_init'] = _emscripten_tls_init;
   Module['HEAPU32'] = HEAPU32;
+  Module['dynCall'] = dynCall;
   Module['registerPthreadPtr'] = registerPthreadPtr;
   Module['_pthread_self'] = _pthread_self;
 

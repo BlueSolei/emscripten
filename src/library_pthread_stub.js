@@ -74,7 +74,7 @@ var LibraryPThreadStub = {
   pthread_cleanup_push__deps: ['$makeDynCaller'],
   pthread_cleanup_push__sig: 'vii',
   pthread_cleanup_push: function(routine, arg) {
-    __ATEXIT__.push(function() { {{{ makeDynCallBound('vi', 'routine') }}}(arg) })
+    __ATEXIT__.push(function() { {{{ makeDynCall('vi', 'routine') }}}(arg) })
     _pthread_cleanup_push.level = __ATEXIT__.length;
   },
 

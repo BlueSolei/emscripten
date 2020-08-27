@@ -179,7 +179,7 @@ var LibraryExceptions = {
     info.add_ref();
   },
 
-  $exception_decRef__deps: ['__cxa_free_exception', '$getDynCaller',
+  $exception_decRef__deps: ['__cxa_free_exception',
 #if EXCEPTION_DEBUG
     , '$exceptionLast', '$exceptionCaught'
 #endif
@@ -195,7 +195,7 @@ var LibraryExceptions = {
       var destructor = info.get_destructor();
       if (destructor) {
         // In Wasm, destructors return 'this' as in ARM
-        {{{ makeDynCallBound('ii', 'destructor') }}}(info.excPtr);
+        {{{ makeDynCall('ii', 'destructor') }}}(info.excPtr);
       }
       ___cxa_free_exception(info.excPtr);
 #if EXCEPTION_DEBUG

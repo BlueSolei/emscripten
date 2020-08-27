@@ -3867,12 +3867,12 @@ LibraryManager.library = {
 
   // libunwind
 
-  _Unwind_Backtrace__deps: ['emscripten_get_callstack_js', '$getDynCaller'],
+  _Unwind_Backtrace__deps: ['emscripten_get_callstack_js'],
   _Unwind_Backtrace: function(func, arg) {
     var trace = _emscripten_get_callstack_js();
     var parts = trace.split('\n');
     for (var i = 0; i < parts.length; i++) {
-      var ret = {{{ makeDynCallBound('iii', 'func') }}}(0, arg);
+      var ret = {{{ makeDynCall('iii', 'func') }}}(0, arg);
       if (ret !== 0) return;
     }
   },
@@ -3918,11 +3918,10 @@ LibraryManager.library = {
 
   // special runtime support
 
-  emscripten_scan_stack__deps: ['$getDynCaller'],
   emscripten_scan_stack: function(func) {
     var base = STACK_BASE; // TODO verify this is right on pthreads
     var end = stackSave();
-    {{{ makeDynCallBound('vii', 'func') }}}(Math.min(base, end), Math.max(base, end));
+    {{{ makeDynCall('vii', 'func') }}}(Math.min(base, end), Math.max(base, end));
   },
 
   // misc definitions to avoid unnecessary unresolved symbols being reported
@@ -4042,14 +4041,7 @@ LibraryManager.library = {
   },
 
   $getDynCaller__deps: ['$dynCall'],
-  $getDynCaller: function(sig) {
-    return function(ptr) {
-      return dynCall(sig, ptr, Array.prototype.slice.call(arguments, 1));
-    };
-  },
-
-  $getDynCalleBoundr__deps: ['$dynCall'],
-  $getDynCallerBound: function(sig, ptr) {
+  $getDynCaller: function(sig, ptr) {
     return function() {
       return dynCall(sig, ptr, Array.prototype.slice.call(arguments));
     };
@@ -4066,9 +4058,9 @@ LibraryManager.library = {
       var func = callback.func;
       if (typeof func === 'number') {
         if (callback.arg === undefined) {
-          {{{ makeDynCallBound('v', 'func') }}}();
+          {{{ makeDynCall('v', 'func') }}}();
         } else {
-          {{{ makeDynCallBound('vi', 'func') }}}(callback.arg);
+          {{{ makeDynCall('vi', 'func') }}}(callback.arg);
         }
       } else {
         func(callback.arg === undefined ? null : callback.arg);

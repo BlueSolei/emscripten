@@ -127,7 +127,7 @@ var LibraryWebSocket = {
     return {{{ cDefine('EMSCRIPTEN_RESULT_SUCCESS') }}};
   },
 
-  emscripten_websocket_set_onopen_callback_on_thread__deps: ['$WS', '$getDynCaller'],
+  emscripten_websocket_set_onopen_callback_on_thread__deps: ['$WS'],
   emscripten_websocket_set_onopen_callback_on_thread__proxy: 'sync',
   emscripten_websocket_set_onopen_callback_on_thread__sig: 'iiiii',
   emscripten_websocket_set_onopen_callback_on_thread: function(socketId, userData, callbackFunc, thread) {
@@ -153,12 +153,12 @@ var LibraryWebSocket = {
       console.error('websocket event "open": socketId='+socketId+',userData='+userData+',callbackFunc='+callbackFunc+')');
 #endif
       HEAPU32[WS.socketEvent>>2] = socketId;
-      {{{ makeDynCallBound(''iiii'', 'callbackFunc') }}}(0/*TODO*/, WS.socketEvent, userData);
+      {{{ makeDynCall(''iiii'', 'callbackFunc') }}}(0/*TODO*/, WS.socketEvent, userData);
     }
     return {{{ cDefine('EMSCRIPTEN_RESULT_SUCCESS') }}};
   },
 
-  emscripten_websocket_set_onerror_callback_on_thread__deps: ['$WS', '$getDynCaller'],
+  emscripten_websocket_set_onerror_callback_on_thread__deps: ['$WS'],
   emscripten_websocket_set_onerror_callback_on_thread__proxy: 'sync',
   emscripten_websocket_set_onerror_callback_on_thread__sig: 'iiiii',
   emscripten_websocket_set_onerror_callback_on_thread: function(socketId, userData, callbackFunc, thread) {
@@ -180,12 +180,12 @@ var LibraryWebSocket = {
       console.error('websocket event "error": socketId='+socketId+',userData='+userData+',callbackFunc='+callbackFunc+')');
 #endif
       HEAPU32[WS.socketEvent>>2] = socketId;
-      {{{ makeDynCallBound(''iiii'', 'callbackFunc') }}}(0/*TODO*/, WS.socketEvent, userData);
+      {{{ makeDynCall(''iiii'', 'callbackFunc') }}}(0/*TODO*/, WS.socketEvent, userData);
     }
     return {{{ cDefine('EMSCRIPTEN_RESULT_SUCCESS') }}};
   },
 
-  emscripten_websocket_set_onclose_callback_on_thread__deps: ['$WS', '$getDynCaller'],
+  emscripten_websocket_set_onclose_callback_on_thread__deps: ['$WS'],
   emscripten_websocket_set_onclose_callback_on_thread__proxy: 'sync',
   emscripten_websocket_set_onclose_callback_on_thread__sig: 'iiiii',
   emscripten_websocket_set_onclose_callback_on_thread: function(socketId, userData, callbackFunc, thread) {
@@ -210,12 +210,12 @@ var LibraryWebSocket = {
       HEAPU32[(WS.socketEvent+4)>>2] = e.wasClean;
       HEAPU32[(WS.socketEvent+8)>>2] = e.code;
       stringToUTF8(e.reason, HEAPU32[(WS.socketEvent+10)>>2], 512);
-      {{{ makeDynCallBound(''iiii'', 'callbackFunc') }}}(0/*TODO*/, WS.socketEvent, userData);
+      {{{ makeDynCall(''iiii'', 'callbackFunc') }}}(0/*TODO*/, WS.socketEvent, userData);
     }
     return {{{ cDefine('EMSCRIPTEN_RESULT_SUCCESS') }}};
   },
 
-  emscripten_websocket_set_onmessage_callback_on_thread__deps: ['$WS', '$getDynCaller'],
+  emscripten_websocket_set_onmessage_callback_on_thread__deps: ['$WS'],
   emscripten_websocket_set_onmessage_callback_on_thread__proxy: 'sync',
   emscripten_websocket_set_onmessage_callback_on_thread__sig: 'iiiii',
   emscripten_websocket_set_onmessage_callback_on_thread: function(socketId, userData, callbackFunc, thread) {
@@ -264,7 +264,7 @@ var LibraryWebSocket = {
       }
       HEAPU32[(WS.socketEvent+4)>>2] = buf;
       HEAPU32[(WS.socketEvent+8)>>2] = len;
-      {{{ makeDynCallBound(''iiii'', 'callbackFunc') }}}(0/*TODO*/, WS.socketEvent, userData);
+      {{{ makeDynCall(''iiii'', 'callbackFunc') }}}(0/*TODO*/, WS.socketEvent, userData);
       _free(buf);
     }
     return {{{ cDefine('EMSCRIPTEN_RESULT_SUCCESS') }}};
