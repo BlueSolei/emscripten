@@ -1261,6 +1261,8 @@ There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR P
       shared.Settings.ALLOW_TABLE_GROWTH = 1
 
     if shared.Settings.WASM2C or shared.Settings.ASYNCIFY:
+      # See: https://github.com/emscripten-core/emscripten/issues/12065
+      # See: https://github.com/emscripten-core/emscripten/issues/12066
       shared.Settings.USE_LEGACY_DYNCALLS = 1
       shared.Settings.DEFAULT_LIBRARY_FUNCS_TO_INCLUDE += ['$getDynCaller']
 
