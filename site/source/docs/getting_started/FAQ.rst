@@ -450,6 +450,15 @@ name (``emcc`` knows that the argument to ``EXPORTED_FUNCTIONS`` is a list of
 strings, so it accepts ``[a]`` or ``[a,b]`` etc.).
 
 
+The issue with ``target_link_options`` its merges same option flags together ("-s Key1=Val1 -s Key2=Val2" will become "-s Key1=Val1 Key2=Val2").
+To overcome this, you can just perpend the options string with `SHELL: `.
+If you use a list of strings, perpend each one:
+
+::
+
+  target_link_options(example PRIVATE "SHELL: -s USE_SDL=2 -s EXPORTED_FUNCTIONS=[_main]")
+
+
 Why do I get an odd python error complaining about libcxx.bc or libcxxabi.bc?
 =============================================================================
 
